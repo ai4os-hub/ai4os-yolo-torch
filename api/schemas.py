@@ -77,18 +77,7 @@ class PredArgsSchema(marshmallow.Schema):
         },
         load_default=False,
     )
-    task_type = fields.Str(
-        metadata={
-            "description": "The type of task for load the pretrained model:\n"
-            '"det" for object detection model\n'
-            '"seg" for object segmentation model\n'
-            '"cls" for object classification model\n'
-            '"obb" for  oriented bounding boxes object detection\n'
-            'The default is "det"',
-            "enum": config.YOLOV8_DEFAULT_TASK_TYPE,
-        },
-        load_default=config.YOLOV8_DEFAULT_TASK_TYPE[0],
-    )
+  
 
     imgsz = fields.List(
         fields.Int(),
@@ -169,29 +158,29 @@ class TrainArgsSchema(marshmallow.Schema):
     class Meta:
         ordered = True
 
-    task_type = fields.Str(
+    retrain  = fields.Bool(
         metadata={
-            "description": "The type of task for the model:\n"
-            '"det" for object detection model\n'
-            '"seg" for object segmentation model\n'
-            '"cls" for object classification model\n'
-            '"obb" for  oriented bounding boxes object detection\n'
-            'The default is "det"',
-            "enum": config.YOLOV8_DEFAULT_TASK_TYPE,
+            "description": "You can choose to train the model from scratch or use a pretrained model.\n"
+            ' By default, the model is retrained.\n'
+
         },
-        load_default="det",
+        load_default=True,
     )
 
     model = fields.Str(
-        metadata={
-            "description": " name of the model to train\n"
-            '"yolov8X.yaml" bulid a model from scratch\n'
-            '"yolov8X.pt" load a pretrained model (recommended for training)',
-            "enum": config.MODEL_LIST,
-        },
-        required=True,
-    )
-
+    metadata={
+        "description": (
+            "Name of the model to train.\n"
+            "Note: The model name includes the type of task it is intended for:\n"
+            '- Models without a specific suffix (e.g., "yolov8n") are for object detection.\n'
+            '- Suffix "seg" indicates an object segmentation model.\n'
+            '- Suffix "cls" indicates an object classification model.\n'
+            '- Suffix "obb" indicates an oriented bounding box object detection model.'
+        ),
+        "enum": config.MODEL_LIST,
+    },
+    required=True,
+)
     data = fields.Str(
         metadata={
             "description": "Path to the config data file (for seg and det) or "

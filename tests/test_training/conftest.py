@@ -42,19 +42,20 @@ number of tests generated can grow exponentially.
 import pytest
 import os
 import api
+ 
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 TEST_DATA_PATH = api.config.TEST_DATA_PATH
 
 
-# Fixture for the 'task_type' parameter
-@pytest.fixture(scope="module", params=["det", "seg"])
-def task_type_param(request):
+# Fixture for the 'retrain' parameter
+@pytest.fixture(scope="module", params=[True])
+def retrain_param(request):
     return request.param
 
 
 # Fixture for the 'model' parameter
-@pytest.fixture(scope="module", params=["yolov8n.yaml"])
+@pytest.fixture(scope="module", params=["yolov8n", "yoloe-v8n-seg"])
 def model_param(request):
     return request.param
 
@@ -348,7 +349,7 @@ def mixup_param(request):
 
 @pytest.fixture(scope="module")
 def train_kwds(
-    task_type_param,
+    retrain_param,
     model_param,
     disable_wandb_param,
     weights_param,
@@ -404,7 +405,7 @@ def train_kwds(
 ):
     """Fixture to return arbitrary keyword arguments for predictions."""
     train_kwds = {
-        "task_type": task_type_param,
+        "retrain": retrain_param,
         "model": model_param,
         "disable_wandb": disable_wandb_param,
         "weights": weights_param,
@@ -464,11 +465,12 @@ def train_kwds(
 @pytest.fixture(scope="module")
 def training(train_kwds):
     """Fixture to return trained model path."""
-    if train_kwds["task_type"] == "det":
+    task_type = api.utils.get_task_type_from_model_name(train_kwds.get("model", ""))
+    if  task_type == "det":
         train_kwds["data"] = os.path.join(
             TEST_DATA_PATH, "det/data.yaml"
         )
-    elif train_kwds["task_type"] == "seg":
+    elif task_type == "seg":
         train_kwds["data"] = os.path.join(
             TEST_DATA_PATH, "seg/label.yaml"
         )

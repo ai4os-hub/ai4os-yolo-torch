@@ -211,22 +211,9 @@ ai4os-yolov8-torch/yolov8_api/preprocess_ann.py #For detection
 
 The Ultralytics YOLOv8 model can be used to train multiple tasks including classification, detection, and segmentatio.
 To train the model based on your project, you can select on of the task_type option in the training arguments and the corresponding model will be loaded and trained.
-for each task, you can select the model arguments among the following options:
-
-``` 
-"yolov8n.yaml",
-"yolov8n.pt",
-"yolov8s.yaml",
-"yolov8s.pt",
-"yolov8m.yaml",
-"yolov8m.pt",
-"yolov8l.yaml",
-"yolov8l.pt",
-"yolov8x.yaml",
-"yolov8x.pt",
-```
-`yolov8X.yaml` bulid a model from scratch and
-`yolov8X.pt` load a pretrained model (recommended for training).
+For each task, you can select the model arguments from various YOLO model versions later than version 8.
+ 
+ 
 
 # 🚀 Launching the API
 

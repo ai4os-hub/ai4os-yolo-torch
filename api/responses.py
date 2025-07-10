@@ -8,7 +8,7 @@ from PIL import Image
 import numpy as np
 import cv2
 from io import BytesIO
-from . import config
+from . import config, utils
 import tempfile
 from PyPDF3 import PdfFileMerger
 import os
@@ -16,6 +16,7 @@ import json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(config.LOG_LEVEL)
+
 
 
 def json_response(results, **options):
@@ -37,6 +38,7 @@ def json_response(results, **options):
     logger.debug("Response options: %s", options)
 
     try:
+        options.setdefault("task_type", utils.get_task_type_from_model_name(options.get("model", "")))
         if options.get("task_type") in ["seg", "det", "obb"]:
             for element in results[0]:
                 # Use the proper `to_json` method to serialize each result

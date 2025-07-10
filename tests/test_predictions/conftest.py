@@ -43,7 +43,7 @@ import pytest
 import os
 from deepaas.model.v2.wrapper import UploadedFile
 import api
-from api import config
+from api import config, utils
 import fnmatch
 
 DATA_FILES = os.listdir(
@@ -77,10 +77,7 @@ def mlflow_fetch(request):
     return request.param
 
 
-# Fixture for the 'task_type' parameter
-@pytest.fixture(scope="module", params=["cls", "det", "seg"])
-def task_type_param(request):
-    return request.param
+ 
 
 
 # Fixture for the 'conf' parameter
@@ -135,7 +132,7 @@ def accept_param(request):
 def pred_kwds(
     files,
     model_param,
-    task_type_param,
+ 
     conf_param,
     iou_param,
     show_conf_param,
@@ -150,7 +147,6 @@ def pred_kwds(
     pred_kwds = {
         "files": files,
         "model": model_param,
-        "task_type": task_type_param,
         "conf": conf_param,
         "iou": iou_param,
         "show_conf": show_conf_param,
@@ -170,4 +166,6 @@ def test_predict(pred_kwds):
     """Test the predict function."""
 
     result = api.predict(**pred_kwds)
-    return result, pred_kwds["accept"], pred_kwds["task_type"]
+    task_type =  utils.get_task_type_from_model_name(pred_kwds.get("model") or "yolov8n.pt")
+
+    return result, pred_kwds["accept"], task_type

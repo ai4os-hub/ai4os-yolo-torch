@@ -59,7 +59,7 @@ def predict(
             [
                 "files",
                 "accept",
-                "task_type",
+                "retrain",
             ],
         )
         result = model.predict(

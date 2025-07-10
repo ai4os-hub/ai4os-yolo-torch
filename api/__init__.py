@@ -97,22 +97,16 @@ def predict(**args):
                     print("args_model", args["model"])
             else:
                 # No model fetched from MLflow, use the default model
-                args["model"] = utils.modify_model_name(
-                    "yolov8n.pt", args["task_type"]
-                )
+                args["model"] = "yolov8n.pt"
 
         else:
             path = os.path.join(args["model"], "weights/best.pt")
             args["model"] = utils.validate_and_modify_path(
                 path, config.MODELS_PATH
             )
-        task_type = args["task_type"]
+   
         args.pop("mlflow_fetch", None)
-        if task_type == "seg" and args["augment"]:
-            # https://github.com/ultralytics/ultralytics/issues/859
-            raise ValueError(
-                "augment for segmentation has not been supported yet"
-            )
+       
         with tempfile.TemporaryDirectory() as tmpdir:
             for f in [args["files"]]:
                 shutil.copy(
@@ -172,18 +166,17 @@ def train(**args):
             }
         )
         # Modify the model name based on task type
-        args["model"] = utils.modify_model_name(
-            args["model"], args["task_type"]
-        )
+        args["model"] = args["model"] + ('.pt' if args["retrain"] else '.yaml')
+
         # Check and update data path if necessary
         base_path = os.path.join(config.DATA_PATH, "processed")
         args["data"] = utils.validate_and_modify_path(
             args["data"], base_path
         )
-        task_type = args["task_type"]
-        if task_type in ["det", "seg", "obb"]:
+        
+      
             # Check and update data paths of val and training in config.yaml
-            if not utils.check_paths_in_yaml(args["data"], base_path):
+        if not utils.check_paths_in_yaml(args["data"], base_path):
                 raise ValueError(
                     "The path to the either train or validation "
                     "data does not exist. Please provide a valid path."
@@ -223,7 +216,7 @@ def train(**args):
         utils.pop_keys_from_dict(
             args,
             [
-                "task_type",
+                "retrain",
                 "disable_wandb",
                 "weights",
                 "device",

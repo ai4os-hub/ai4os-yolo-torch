@@ -14,19 +14,9 @@ import ast
 from importlib import metadata
 from pathlib import Path
 import datetime
+from yolov8_api import yolo_versions
 
-MODEL_LIST = [
-    "yolov8n.yaml",
-    "yolov8n.pt",
-    "yolov8s.yaml",
-    "yolov8s.pt",
-    "yolov8m.yaml",
-    "yolov8m.pt",
-    "yolov8l.yaml",
-    "yolov8l.pt",
-    "yolov8x.yaml",
-    "yolov8x.pt",
-]
+MODEL_LIST =   [variant for variants in yolo_versions.get_all_local_yolo_versions_and_variants().values() for variant in variants]
 # Default AI model
 MODEL_NAME = os.getenv("MODEL_NAME", default="yolov8_api")
 
