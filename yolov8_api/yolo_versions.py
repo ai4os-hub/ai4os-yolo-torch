@@ -8,11 +8,13 @@ def get_task_type_from_model_name(model_name):
         return 'cls'
     elif '-obb' in model_name:
         return 'obb'
+    elif '-pose' in model_name:
+        return 'pose'
     else:
         return 'det'  # default is detection
 
-ALLOWED_TASKS = {'-cls', '-seg', '-obb'}
-TASK_ORDER = {'det': 0, 'cls': 1, 'obb': 2, 'seg': 3}
+ALLOWED_TASKS = {'-cls', '-seg', '-obb', '-pose'}
+TASK_ORDER = {'det': 0, 'cls': 1, 'obb': 2, 'seg': 3, 'pose': 4}
 def get_all_local_yolo_versions_and_variants():
     spec = importlib.util.find_spec("ultralytics")
     base_path = os.path.dirname(spec.origin)

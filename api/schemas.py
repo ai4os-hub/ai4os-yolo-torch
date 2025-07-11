@@ -67,6 +67,16 @@ class PredArgsSchema(marshmallow.Schema):
         },
         load_default=config.YOLOV8_DEFAULT_WEIGHTS[0],
     )
+    task_type = fields.String(
+        metadata={
+            "description": "The type of task to perform, "
+            "i.e. detection (det), segmentation (seg), "
+            "classification (cls), oriented bounding box (obb), "
+            "or pose estimation (pose). If not provided, "
+            "the task type will be inferred from the model name."
+        },
+        load_default='det',
+    )
     mlflow_fetch = fields.Boolean(
         metadata={
             "description": "Load a model from your MLflow model registry. "
