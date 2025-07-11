@@ -185,7 +185,9 @@ class TrainArgsSchema(marshmallow.Schema):
             '- Models without a specific suffix (e.g., "yolov8n") are for object detection.\n'
             '- Suffix "seg" indicates an object segmentation model.\n'
             '- Suffix "cls" indicates an object classification model.\n'
-            '- Suffix "obb" indicates an oriented bounding box object detection model.'
+            '- Suffix "obb" indicates an oriented bounding box object detection model.\n'
+            '- Suffix "pose" indicates a human pose estimation model.\n'
+            'for more information about the model, please refer to the documentation at https://docs.ultralytics.com/models/#featured-models'
         ),
         "enum": config.MODEL_LIST,
     },
