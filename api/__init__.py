@@ -97,16 +97,22 @@ def predict(**args):
                     print("args_model", args["model"])
             else:
                 # No model fetched from MLflow, use the default model
-                args["model"] = "yolov8n.pt"
+                args["model"] = utils.modify_model_name(
+                    "yolov8n.pt", args["task_type"]
+                )
 
         else:
             path = os.path.join(args["model"], "weights/best.pt")
             args["model"] = utils.validate_and_modify_path(
                 path, config.MODELS_PATH
             )
-   
+        task_type = args["task_type"]
         args.pop("mlflow_fetch", None)
-       
+        if task_type == "seg" and args["augment"]:
+            # https://github.com/ultralytics/ultralytics/issues/859
+            raise ValueError(
+                "augment for segmentation has not been supported yet"
+            )
         with tempfile.TemporaryDirectory() as tmpdir:
             for f in [args["files"]]:
                 shutil.copy(
