@@ -22,9 +22,9 @@ from ultralytics import YOLO, settings
 from aiohttp.web import HTTPException
 from deepaas.model.v2.wrapper import UploadedFile
 
-import yolov8_api as aimodel
+import ai4os_yolo as aimodel
 from . import config, responses, schemas, utils
-from yolov8_api.utils import (
+from ai4os_yolo.utils import (
     mlflow_fetch,
     mlflow_logging,
 )
@@ -36,7 +36,7 @@ logger.setLevel(config.LOG_LEVEL)
 
 # global var
 
-MLFLOW_MODEL_NAME = "yolov8_footballPlayersDetection"
+MLFLOW_MODEL_NAME = "yolo_footballPlayersDetection"
 
 
 def get_metadata():
@@ -138,7 +138,7 @@ def predict(**args):
 @utils.train_arguments(schema=schemas.TrainArgsSchema)
 def train(**args):
     """
-    Trains a yolov8 model using the specified arguments.
+    Trains a YOLO model using the specified arguments.
 
     Args:
         **args (dict): A dictionary of arguments for training the model
@@ -324,6 +324,6 @@ if __name__ == "__main__":
     --data /srv/football-players-detection-7/data.yaml\
     --Enable_MLFLOW --epochs 50
     python3 api/__init__.py  predict --files \
-    /srv/yolov8_api/tests/data/det/test/cat1.jpg\
+    /srv/ai4os-yolo-torch/tests/data/det/test/cat1.jpg\
     --task_type  det --accept application/json
     """

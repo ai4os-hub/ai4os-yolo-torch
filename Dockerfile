@@ -18,8 +18,8 @@ ARG tag=1.13.1-cuda11.6-cudnn8-runtime
 FROM pytorch/pytorch:${tag}
 
 LABEL maintainer='Fahimeh, Lisana'
-LABEL version='0.1.0'
-# Add deep api to yolov8 model
+LABEL version='0.5.0'
+# Add deep api to YOLO model
 
 # What user branch to clone [!]
 ARG branch=mlflow
@@ -72,8 +72,9 @@ RUN git clone https://github.com/ai4os/deep-start /srv/.deep-start && \
 ENV SHELL /bin/bash
 
 # Install user app
-RUN git clone --depth 1 -b $branch https://github.com/ai4os-hub/ai4os-yolov8-torch.git && \
-    cd  ai4os-yolov8-torch && \
+RUN git clone --depth 1 -b $branch https://github.com/ai4os-hub/ai4os-yolo-torch.git && \
+    ln -s ai4os-yolo-torch ai4os-yolov8-torch && \
+    cd  ai4os-yolo-torch && \
     pip3 install --no-cache-dir -e . && \
     cd ..
 

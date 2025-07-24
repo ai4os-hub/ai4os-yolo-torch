@@ -37,7 +37,7 @@ def test_emails(metadata):
 def test_description(metadata):
     """Tests that metadata provides description information."""
     assert "description" in metadata
-    assert metadata["description"] == "add api to yolov8"
+    assert metadata["description"] == "Add API to YOLO from Ultralytics8"
 
 
 def test_license(metadata):

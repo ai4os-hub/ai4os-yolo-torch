@@ -65,7 +65,7 @@ class PredArgsSchema(marshmallow.Schema):
             "or the pre-trained default model will be loaded "
             "depending on the task type."
         },
-        load_default=config.YOLOV8_DEFAULT_WEIGHTS[0],
+        load_default=config.YOLO_DEFAULT_WEIGHTS[0],
     )
     task_type = fields.String(
         metadata={
@@ -81,7 +81,7 @@ class PredArgsSchema(marshmallow.Schema):
         metadata={
             "description": "Load a model from your MLflow model registry. "
             "Please set the MLFLOW_MODEL_NAME in the "
-            "yolov8_api/config.py file to be loaded for "
+            "ai4os_yolo/config.py file to be loaded for "
             "prediction. Make sure you have passed the environment "
             "variables related to your MLflow (See readme)."
         },
@@ -197,7 +197,7 @@ class TrainArgsSchema(marshmallow.Schema):
         metadata={
             "description": "Path to the config data file (for seg and det) or "
             "data (cls task), e.g., 'root/path/to/mydata/data.yaml' or "
-            "if it is in the 'path/to/ai4os-yolov8-torch/data/raw' just"
+            "if it is in the 'path/to/ai4os-yolo-torch/data/raw' just"
             "mydata/data.yaml"
         },
         allow_none=True,

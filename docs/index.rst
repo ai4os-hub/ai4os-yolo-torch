@@ -1,9 +1,9 @@
-.. ai4os-yolov8-torch documentation master file, created by
+.. ai4os-yolo-torch documentation master file, created by
    sphinx-quickstart.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-ai4os-yolov8-torch documentation!
+ai4os-yolo-torch documentation!
 ==============================================
 
 Contents:

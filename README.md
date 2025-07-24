@@ -1,22 +1,22 @@
-# ai4os-yolov8-torch
+# ai4os-yolo-torch
 
-[![Build Status](https://jenkins.services.ai4os.eu/buildStatus/icon?job=AI4OS-hub/ai4os-yolov8-torch/main)](https://jenkins.services.ai4os.eu/job/AI4OS-hub/job/ai4os-yolov8-torch/job/main/)
+[![Build Status](https://jenkins.cloud.ai4eosc.eu/buildStatus/icon?job=AI4OS-hub/ai4os-yolo-torch/main)](https://jenkins.cloud.ai4eosc.eu/job/AI4OS-hub/job/ai4os-yolo-torch/job/main/)
 
-Ultralytics YOLOv8 represents the forefront of object detection models, incorporating advancements from prior YOLO iterations while introducing novel features to enhance performance and versatility. YOLOv8 prioritizes speed, precision, and user-friendliness, positioning itself as an exceptional solution across diverse tasks such as object detection, ororiented bounding boxes detection, tracking, instance segmentation, and image classification. Its refined architecture and innovations make it an ideal choice for cutting-edge applications in the field of computer vision.
+Ultralytics YOLO represents the forefront of object detection models, incorporating advancements from prior YOLO iterations while introducing novel features to enhance performance and versatility. YOLO prioritizes speed, precision, and user-friendliness, positioning itself as an exceptional solution across diverse tasks such as object detection, ororiented bounding boxes detection, tracking, instance segmentation, and image classification. Its refined architecture and innovations make it an ideal choice for cutting-edge applications in the field of computer vision.
 This model suports: 
 - Integrated with DEEPaaS API (platform support)
 - Dockerized
 - Supports MLflow
 - Hyperparameter optimization with Hydra, Optuna & MLflow
   
-# 🔌 Integrating DeepaaS API with YOLOv8
-In this repository, we have integrated a DeepaaS API into the  Ultralytics YOLOv8, enabling the seamless utilization of this pipeline. The inclusion of the DeepaaS API enhances the functionality and accessibility of the code, making it easier for users to leverage and interact with the pipeline efficiently.
+# 🔌 Integrating DeepaaS API with YOLO
+In this repository, we have integrated a DeepaaS API into the  Ultralytics YOLO, enabling the seamless utilization of this pipeline. The inclusion of the DeepaaS API enhances the functionality and accessibility of the code, making it easier for users to leverage and interact with the pipeline efficiently.
 
 # 🛠️ Install the API
 To launch the API, first, install the package, and then run DeepaaS:
 ``` bash
-git clone --depth 1 https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolov8-torch.git
-cd  ai4os-yolov8-torch
+git clone --depth 1 https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolo-torch.git
+cd  ai4os-yolo-torch
 pip install -e .
 deepaas-run --listen-ip 0.0.0.0
 ```
@@ -37,12 +37,12 @@ apt install -y libglib2.0-0
 ├── README.md               <- The top-level README for developers using this project.
 ├── VERSION                 <- Version file indicating the version of the model
 │
-├── yolov8_api
+├── ai4os_yolo
 │   ├── README.md           <- Instructions on how to integrate your model with DEEPaaS.
 │   ├── __init__.py         <- Makes <your-model-source> a Python module
 │   ├── ...                 <- Other source code files
 │   └── config.py   <- Module to define CONSTANTS used across the AI-model python package
-│   └── hpo_yolov8 <- Hyperparameter Optimization using Optuna + Hydra + MLflow
+│   └── hpo_yolo <- Hyperparameter Optimization using Optuna + Hydra + MLflow
 │
 ├── api                     <- API subpackage for the integration with DEEP API
 │   ├── __init__.py         <- Makes api a Python module, includes API interface methods
@@ -95,8 +95,8 @@ apt install -y libglib2.0-0
 - `DATA_PATH`: Path definition for the data folder; the default is './data'.
 -  `MODELS_PATH`: Path definition for saving trained models; the default is './models'.
 - `REMOTE_PATH`: Path to the remote directory containing your trained models. Rclone uses this path for downloading or listing the trained models.
-- `YOLOV8_DEFAULT_TASK_TYPE`: Specify the default tasks related to your work among detection (det), segmentation (seg), and classification (cls).
-- `YOLOV8_DEFAULT_WEIGHTS`: Define default timestamped weights for your trained models to be used during prediction. If no timestamp is specified by the user during prediction, the first model in YOLOV8_DEFAULT_WEIGHTS will be used. If it is set to None, the Yolov8n trained on coco/imagenet will be used. Format them as timestamp1, timestamp2, timestamp3, ..."
+- `YOLO_DEFAULT_TASK_TYPE`: Specify the default tasks related to your work among detection (det), segmentation (seg), and classification (cls).
+- `YOLO_DEFAULT_WEIGHTS`: Define default timestamped weights for your trained models to be used during prediction. If no timestamp is specified by the user during prediction, the first model in YOLO_DEFAULT_WEIGHTS will be used. If it is set to None, the yolov8n trained on coco/imagenet will be used. Format them as timestamp1, timestamp2, timestamp3, ..."
 
 # 📊 Track Your Experiments with MLflow
 If you want to use Mflow to track and log your experiments, you should first set the following environment variables:
@@ -117,7 +117,7 @@ optional options:
 # 📁 Dataset Preparation
 - Detection (det), oriented bounding boxes detection (obb) and Segmentation Tasks (seg):
 
-    - To train the yolov8 model, your annotations should be saved as yolo formats (.txt). Please organize your data in the following structure:
+    - To train the yolo model, your annotations should be saved as yolo formats (.txt). Please organize your data in the following structure:
 ```
 
 │
@@ -175,7 +175,7 @@ The `train` and `val` fields specify the paths to the directories containing the
 `names` is a dictionary of class names. The order of the names should match the order of the object class indices in the YOLO dataset files.
 
 ><span style="color:Blue">**Note:**</span>The train and val path should be a complete path or relative from
-data directory e.g. `root/path/to/mydata/train/images` or if it is in the `path/to/ai4os-yolov8-torch/data/raw` just 
+data directory e.g. `root/path/to/mydata/train/images` or if it is in the `path/to/ai4os-yolo-torch/data/raw` just 
 `mydata/train/images`
 
 
@@ -204,12 +204,12 @@ data/
 
 ><span style="color:Blue">**Note:**</span>  If you have annotations files in Coco json format or Pascal VOC xml format, you can use the following script to convert them to the proper format for yolo. 
 ``` 
-ai4os-yolov8-torch/yolov8_api/seg_coco_json_to_yolo.py #for segmentation
-ai4os-yolov8-torch/yolov8_api/preprocess_ann.py #For detection
+ai4os-yolo-torch/ai4os_yolo/seg_coco_json_to_yolo.py #for segmentation
+ai4os-yolo-torch/ai4os_yolo/preprocess_ann.py #For detection
 ``` 
 # 📦 Available Models
 
-The Ultralytics YOLOv8 model can be used to train multiple tasks including classification, detection, and segmentatio.
+The Ultralytics YOLO models can be used to train multiple tasks including classification, detection, and segmentatio.
 To train the model based on your project, you can select on of the task_type option in the training arguments and the corresponding model will be loaded and trained.
 For each task, you can select the model arguments from various YOLO model versions later than version 8.
  
@@ -243,11 +243,11 @@ You can utilize the Swagger interface to upload your images or videos and obtain
 
 # ⚡ Hyperparameter Optimization using Optuna + Hydra + MLflow
 
-Please refer to the `README.md` inside the `yolov8_api/hpo_yolov8` directory to see how you can use these tools to automatically optimize YOLOv8 hyperparameters from the command line.
+Please refer to the `README.md` inside the `ai4os_yolo/hpo_yolo` directory to see how you can use these tools to automatically optimize YOLO hyperparameters from the command line.
 
 ## 📚 References
 
-- [Ultralytics YOLOv8 Documentation](https://docs.ultralytics.com/)
+- [Ultralytics YOLO Documentation](https://docs.ultralytics.com/)
 - [Hydra – Elegant Configuration Management](https://hydra.cc/)
 - [Hydra Optuna Sweeper Plugin](https://github.com/facebookresearch/hydra/tree/main/plugins/hydra_optuna_sweeper)
 - [Optuna – Hyperparameter Optimization Framework](https://optuna.org/)
