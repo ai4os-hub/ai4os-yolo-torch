@@ -19,10 +19,10 @@ FROM pytorch/pytorch:${tag}
 
 LABEL maintainer='Fahimeh, Lisana'
 LABEL version='0.5.0'
-# Add deep api to YOLO model
+# Add DEEPaaS API to YOLO models
 
 # What user branch to clone [!]
-ARG branch=mlflow
+ARG branch=dev
 
 # Install Ubuntu packages
 # - gcc is needed in Pytorch images because deepaas installation might break otherwise (see docs) (it is already installed in tensorflow images)

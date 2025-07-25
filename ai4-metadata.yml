@@ -1,6 +1,6 @@
 metadata_version: 2.0.0
 title: YOLO models
-summary: Object detection using YOLO model
+summary: Object detection, segmentation, classification using YOLO models from Ultralytics
 description: |-
 
   Ultralytics YOLO represents the forefront of object detection (segmentation/classification) models incorporating advancements from   prior YOLO iterations while introducing novel features to enhance performance and versatility. 
