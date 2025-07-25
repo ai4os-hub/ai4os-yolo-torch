@@ -21,8 +21,8 @@ authors = [{name= "Fahimeh Alibabaei", email= "khadijeh.alibabaei@kit.edu"} ,{na
 #authors-email = ["khadijeh.alibabaei@kit.edu"]
 
 [project.urls]
-"Homepage" = "https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolo-torch"
-"Bug Tracker" = "https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolo-torch/issues"
+"Homepage" = "https://github.com/ai4os-hub/ai4os-yolo-torch"
+"Bug Tracker" = "https://github.com/ai4os-hub/ai4os-yolo-torch/issues"
 
 [tool.pytest.ini_options]
 pythonpath = ["."]
