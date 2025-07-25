@@ -27,8 +27,8 @@ jobs:
     - uses: ai4os/git-repo-sync@0.1.1
       # FORK of https://github.com/wangchucheng/git-repo-sync.git
       with:
-        # Such as e.g. https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolov8-torch
-        target-url: https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolov8-torch
+        # Such as e.g. https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolo-torch
+        target-url: https://codebase.helmholtz.cloud/m-team/ai/ai4os-yolo-torch
         # You can store secrets in your project's 'Setting > Secrets' and reference the names here. Such as ${{ secrets.TARGET_TOKEN }}
         target-username: ${{ secrets.TARGET_USERNAME }}
         target-token: ${{ secrets.TARGET_TOKEN }}

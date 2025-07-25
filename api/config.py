@@ -14,21 +14,11 @@ import ast
 from importlib import metadata
 from pathlib import Path
 import datetime
+from ai4os_yolo import yolo_versions
 
-MODEL_LIST = [
-    "yolov8n.yaml",
-    "yolov8n.pt",
-    "yolov8s.yaml",
-    "yolov8s.pt",
-    "yolov8m.yaml",
-    "yolov8m.pt",
-    "yolov8l.yaml",
-    "yolov8l.pt",
-    "yolov8x.yaml",
-    "yolov8x.pt",
-]
+MODEL_LIST =   [variant for variants in yolo_versions.get_all_local_yolo_versions_and_variants().values() for variant in variants]
 # Default AI model
-MODEL_NAME = os.getenv("MODEL_NAME", default="yolov8_api")
+MODEL_NAME = os.getenv("MODEL_NAME", default="ai4os_yolo")
 
 # Get AI model metadata
 MODEL_METADATA = metadata.metadata(MODEL_NAME)
@@ -80,21 +70,21 @@ except KeyError as err:
 
 # Specify the default tasks related to your work among detection (det),
 # segmentation (seg), and classification (cls).
-YOLOV8_DEFAULT_TASK_TYPE = os.getenv(
-    "YOLOV8_DEFAULT_TASK_TYPE", default="det,seg,cls,obb"
+YOLO_DEFAULT_TASK_TYPE = os.getenv(
+    "YOLO_DEFAULT_TASK_TYPE", default="det,seg,cls,obb,pose"
 )
-YOLOV8_DEFAULT_TASK_TYPE = YOLOV8_DEFAULT_TASK_TYPE.split(",")
+YOLO_DEFAULT_TASK_TYPE = YOLO_DEFAULT_TASK_TYPE.split(",")
 
 
 # Specify default timestamped weights for your trained models
 # to be utilized during
 # prediction. Format them as timestamp1, timestamp2, timestamp3, ...
-YOLOV8_DEFAULT_WEIGHTS = os.getenv(
-    "YOLOV8_DEFAULT_WEIGHTS", default=None
+YOLO_DEFAULT_WEIGHTS = os.getenv(
+    "YOLO_DEFAULT_WEIGHTS", default=None
 )
-YOLOV8_DEFAULT_WEIGHTS = (
-    YOLOV8_DEFAULT_WEIGHTS.split(",")
-    if YOLOV8_DEFAULT_WEIGHTS
+YOLO_DEFAULT_WEIGHTS = (
+    YOLO_DEFAULT_WEIGHTS.split(",")
+    if YOLO_DEFAULT_WEIGHTS
     else [None]
 )
 
@@ -106,7 +96,7 @@ try:
         default="https://mlflow.cloud.ai4eosc.eu/",
     )
     MLFLOW_EXPERIMENT_NAME = os.getenv(
-        "MLFLOW_EXPERIMENT_NAME", default="yolov8"
+        "MLFLOW_EXPERIMENT_NAME", default="yolo"
     )
     MLFLOW_RUN = os.getenv(
         "MLFLOW_RUN",

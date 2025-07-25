@@ -27,7 +27,7 @@ import io
 def test_prediction(test_predict):
     """Test the predict function."""
     # Access the test_predict fixture defined in conftest.py
-    result, accept, task_type = test_predict
+    result, accept , task_type = test_predict
     print(result[0])
 
     # Assert the expected result based on the 'accept' argument

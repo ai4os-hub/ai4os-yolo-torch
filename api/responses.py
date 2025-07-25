@@ -8,7 +8,7 @@ from PIL import Image
 import numpy as np
 import cv2
 from io import BytesIO
-from . import config
+from . import config, utils
 import tempfile
 from PyPDF3 import PdfFileMerger
 import os
@@ -16,7 +16,7 @@ import json
 
 logger = logging.getLogger(__name__)
 logger.setLevel(config.LOG_LEVEL)
-
+#Add TASK_TYPE 
 
 def json_response(results, **options):
     """Converts the prediction or training results into JSON format.
@@ -37,7 +37,7 @@ def json_response(results, **options):
     logger.debug("Response options: %s", options)
 
     try:
-        if options.get("task_type") in ["seg", "det", "obb"]:
+        if options.get("task_type") in ["seg", "det", "obb", "pose"]:
             for element in results[0]:
                 # Use the proper `to_json` method to serialize each result
                 prediction = (
@@ -71,7 +71,6 @@ def json_response(results, **options):
             result_data.results[0]
 
         return result_data
-
     except Exception as err:
         logger.warning("Error converting result to JSON: %s", err)
         raise RuntimeError("Unsupported response type") from err

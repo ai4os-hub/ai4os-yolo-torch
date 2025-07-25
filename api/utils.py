@@ -149,7 +149,15 @@ def modify_model_name(model_name, task_type):
     logger.info(f"Modified model name: {modified_model_name}")
     return modified_model_name
 
-
+def get_task_type_from_model_name(model_name):
+    if '-seg' in model_name:
+        return 'seg'
+    elif '-cls' in model_name:
+        return 'cls'
+    elif '-obb' in model_name:
+        return 'obb'
+    else:
+        return 'det'  # default is detection
 def generate_arguments(schema):
     """Function to generate arguments for DEEPaaS using schemas."""
     def arguments_function():  # fmt: skip

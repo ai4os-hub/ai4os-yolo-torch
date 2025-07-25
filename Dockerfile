@@ -18,11 +18,11 @@ ARG tag=1.13.1-cuda11.6-cudnn8-runtime
 FROM pytorch/pytorch:${tag}
 
 LABEL maintainer='Fahimeh, Lisana'
-LABEL version='0.1.0'
-# Add deep api to yolov8 model
+LABEL version='0.5.0'
+# Add DEEPaaS API to YOLO models
 
 # What user branch to clone [!]
-ARG branch=mlflow
+ARG branch=dev
 
 # Install Ubuntu packages
 # - gcc is needed in Pytorch images because deepaas installation might break otherwise (see docs) (it is already installed in tensorflow images)
@@ -72,8 +72,9 @@ RUN git clone https://github.com/ai4os/deep-start /srv/.deep-start && \
 ENV SHELL /bin/bash
 
 # Install user app
-RUN git clone --depth 1 -b $branch https://github.com/ai4os-hub/ai4os-yolov8-torch.git && \
-    cd  ai4os-yolov8-torch && \
+RUN git clone --depth 1 -b $branch https://github.com/ai4os-hub/ai4os-yolo-torch.git && \
+    ln -s ai4os-yolo-torch ai4os-yolov8-torch && \
+    cd  ai4os-yolo-torch && \
     pip3 install --no-cache-dir -e . && \
     cd ..
 

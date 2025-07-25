@@ -1,6 +1,6 @@
-# 🚀 YOLOv8 Hyperparameter Optimization with Hydra, Optuna & MLflow
+# 🚀 YOLO Hyperparameter Optimization with Hydra, Optuna & MLflow
 
-This repository provides a framework to **train and optimize YOLOv8 models** using **Optuna**, **Hydra**, and **MLflow**. It is designed to streamline the process of configuring, training, validating, and evaluating object detection models with automated tracking and logging.
+This repository provides a framework to **train and optimize YOLO models** using **Optuna**, **Hydra**, and **MLflow**. It is designed to streamline the process of configuring, training, validating, and evaluating object detection models with automated tracking and logging.
 
 ## 📁 Project Structure
 ```bash
@@ -15,7 +15,7 @@ This repository provides a framework to **train and optimize YOLOv8 models** usi
 - 🔧 Hyperparameter optimization with **Optuna**
 - 🧠 Config management via **Hydra**
 - 📈 Metrics & artifact logging using **MLflow**
-- 📦 Supports training/validation with **Ultralytics YOLOv8**
+- 📦 Supports training/validation with **Ultralytics YOLO**
 
 ---
 ## 🧰 Installation
@@ -116,7 +116,7 @@ python3 hpo.py --multirun
 
 ## 📚 References
 
-- [Ultralytics YOLOv8 Documentation](https://docs.ultralytics.com/)
+- [Ultralytics YOLO Documentation](https://docs.ultralytics.com/)
 - [Hydra – Elegant Configuration Management](https://hydra.cc/)
 - [Hydra Optuna Sweeper Plugin](https://github.com/facebookresearch/hydra/tree/main/plugins/hydra_optuna_sweeper)
 - [Optuna – Hyperparameter Optimization Framework](https://optuna.org/)

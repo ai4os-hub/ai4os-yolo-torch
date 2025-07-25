@@ -65,30 +65,29 @@ class PredArgsSchema(marshmallow.Schema):
             "or the pre-trained default model will be loaded "
             "depending on the task type."
         },
-        load_default=config.YOLOV8_DEFAULT_WEIGHTS[0],
+        load_default=config.YOLO_DEFAULT_WEIGHTS[0],
+    )
+    task_type = fields.String(
+        metadata={
+            "description": "The type of task to perform, "
+            "i.e. detection (det), segmentation (seg), "
+            "classification (cls), oriented bounding box (obb), "
+            "or pose estimation (pose). If not provided, "
+            "the task type will be inferred from the model name."
+        },
+        load_default='det',
     )
     mlflow_fetch = fields.Boolean(
         metadata={
             "description": "Load a model from your MLflow model registry. "
             "Please set the MLFLOW_MODEL_NAME in the "
-            "yolov8_api/config.py file to be loaded for "
+            "ai4os_yolo/config.py file to be loaded for "
             "prediction. Make sure you have passed the environment "
             "variables related to your MLflow (See readme)."
         },
         load_default=False,
     )
-    task_type = fields.Str(
-        metadata={
-            "description": "The type of task for load the pretrained model:\n"
-            '"det" for object detection model\n'
-            '"seg" for object segmentation model\n'
-            '"cls" for object classification model\n'
-            '"obb" for  oriented bounding boxes object detection\n'
-            'The default is "det"',
-            "enum": config.YOLOV8_DEFAULT_TASK_TYPE,
-        },
-        load_default=config.YOLOV8_DEFAULT_TASK_TYPE[0],
-    )
+  
 
     imgsz = fields.List(
         fields.Int(),
@@ -169,34 +168,36 @@ class TrainArgsSchema(marshmallow.Schema):
     class Meta:
         ordered = True
 
-    task_type = fields.Str(
+    retrain  = fields.Bool(
         metadata={
-            "description": "The type of task for the model:\n"
-            '"det" for object detection model\n'
-            '"seg" for object segmentation model\n'
-            '"cls" for object classification model\n'
-            '"obb" for  oriented bounding boxes object detection\n'
-            'The default is "det"',
-            "enum": config.YOLOV8_DEFAULT_TASK_TYPE,
+            "description": "You can choose to train the model from scratch or use a pretrained model.\n"
+            ' By default, the model is retrained.\n'
+
         },
-        load_default="det",
+        load_default=True,
     )
 
     model = fields.Str(
-        metadata={
-            "description": " name of the model to train\n"
-            '"yolov8X.yaml" bulid a model from scratch\n'
-            '"yolov8X.pt" load a pretrained model (recommended for training)',
-            "enum": config.MODEL_LIST,
-        },
-        required=True,
-    )
-
+    metadata={
+        "description": (
+            "Name of the model to train.\n"
+            "Note: The model name includes the type of task it is intended for:\n"
+            '- Models without a specific suffix (e.g., "yolov8n") are for object detection.\n'
+            '- Suffix "seg" indicates an object segmentation model.\n'
+            '- Suffix "cls" indicates an object classification model.\n'
+            '- Suffix "obb" indicates an oriented bounding box object detection model.\n'
+            '- Suffix "pose" indicates a human pose estimation model.\n'
+            'for more information about the model, please refer to the documentation at https://docs.ultralytics.com/models/#featured-models'
+        ),
+        "enum": config.MODEL_LIST,
+    },
+    required=True,
+)
     data = fields.Str(
         metadata={
             "description": "Path to the config data file (for seg and det) or "
             "data (cls task), e.g., 'root/path/to/mydata/data.yaml' or "
-            "if it is in the 'path/to/ai4os-yolov8-torch/data/raw' just"
+            "if it is in the 'path/to/ai4os-yolo-torch/data/raw' just"
             "mydata/data.yaml"
         },
         allow_none=True,
